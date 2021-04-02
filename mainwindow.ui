@@ -6,16 +6,143 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>400</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <spacer name="leftSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>171</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <spacer name="topSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="resetButton">
+        <property name="text">
+         <string>Reset</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="bottomSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="RightSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>171</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuNew_Game">
+    <property name="title">
+     <string>New Game</string>
+    </property>
+    <addaction name="actionEasy"/>
+    <addaction name="actionMedium"/>
+    <addaction name="actionHard"/>
+   </widget>
+   <widget class="QMenu" name="menuDEBUG">
+    <property name="title">
+     <string>DEBUG</string>
+    </property>
+    <addaction name="actionREVEAL"/>
+    <addaction name="actionCONCEAL"/>
+   </widget>
+   <addaction name="menuNew_Game"/>
+   <addaction name="menuDEBUG"/>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionEasy">
+   <property name="text">
+    <string>Easy</string>
+   </property>
+  </action>
+  <action name="actionMedium">
+   <property name="text">
+    <string>Medium</string>
+   </property>
+  </action>
+  <action name="actionHard">
+   <property name="text">
+    <string>Hard</string>
+   </property>
+  </action>
+  <action name="actionREVEAL">
+   <property name="text">
+    <string>REVEAL</string>
+   </property>
+  </action>
+  <action name="actionCONCEAL">
+   <property name="text">
+    <string>CONCEAL</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
