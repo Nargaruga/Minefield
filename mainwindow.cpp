@@ -6,9 +6,6 @@
 #include <chrono>
 #include <QDebug>
 
-using myClock = std::chrono::system_clock;
-using ms = std::chrono::duration<double, std::milli>;
-
 //TODO: refactor, this class does too many things.
 
 MainWindow::MainWindow(QWidget *parent, int nRows, int nColumns, int nMines)
@@ -46,7 +43,6 @@ void MainWindow::initUi()
         buttons->push_back(new vector<CellButton*>);
         for(int j = 0; j < columns; j++)
         {
-            auto before = myClock::now();
 
             Cell* cell = new Cell(i, j);
             CellButton* btn = new CellButton();
@@ -60,9 +56,6 @@ void MainWindow::initUi()
             connect(btn, SIGNAL(mineHit()), this, SLOT(onMineHit()));
             connect(btn, SIGNAL(shouldRevealNeighbours(int, int)), grid, SLOT(revealNeighbours(int, int)));
             connect(btn, SIGNAL(leftClick()), grid, SLOT(onButtonLeftClicked()));
-
-            ms duration = myClock::now() - before;
-            qDebug() << QString("Inner for: %1").arg(duration.count());
         }
     }
 
