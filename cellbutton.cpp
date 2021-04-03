@@ -8,6 +8,11 @@ CellButton::CellButton()
 
 }
 
+CellButton::~CellButton()
+{
+    delete cell;
+}
+
 //Handles mouse click events
 void CellButton::mouseReleaseEvent(QMouseEvent *e)
 {

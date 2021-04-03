@@ -11,6 +11,7 @@ class CellButton: public QToolButton
 
 public:
     CellButton();
+    ~CellButton();
 
     Cell* getCell() { return cell; }
     void setCell(Cell* c) { cell = c; }

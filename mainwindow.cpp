@@ -3,6 +3,12 @@
 #include "cellbutton.h"
 #include "config.h"
 
+#include <chrono>
+#include <QDebug>
+
+using myClock = std::chrono::system_clock;
+using ms = std::chrono::duration<double, std::milli>;
+
 //TODO: refactor, this class does too many things.
 
 MainWindow::MainWindow(QWidget *parent, int nRows, int nColumns, int nMines)
@@ -16,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent, int nRows, int nColumns, int nMines)
     mines = nMines;
 
     initUi();
+
     grid->layMines();
 
     connect(grid, SIGNAL(victory()), this, SLOT(onVictory()));
@@ -39,11 +46,13 @@ void MainWindow::initUi()
         buttons->push_back(new vector<CellButton*>);
         for(int j = 0; j < columns; j++)
         {
+            auto before = myClock::now();
+
             Cell* cell = new Cell(i, j);
             CellButton* btn = new CellButton();
             btn->setCell(cell);
             btn->setFixedSize(CELL_SIZE, CELL_SIZE);
-            setStyleSheet(QString("background-color: %1;").arg(defaultColor));
+            btn->setStyleSheet(QString("background-color: %1;").arg(defaultColor));
             buttons->at(i)->push_back(btn);
 
             ui->gridLayout->addWidget(btn, i, j, 1, 1);
@@ -51,6 +60,9 @@ void MainWindow::initUi()
             connect(btn, SIGNAL(mineHit()), this, SLOT(onMineHit()));
             connect(btn, SIGNAL(shouldRevealNeighbours(int, int)), grid, SLOT(revealNeighbours(int, int)));
             connect(btn, SIGNAL(leftClick()), grid, SLOT(onButtonLeftClicked()));
+
+            ms duration = myClock::now() - before;
+            qDebug() << QString("Inner for: %1").arg(duration.count());
         }
     }
 
@@ -64,6 +76,7 @@ void MainWindow::clearUi()
         for(int j = 0; j < columns; j++)
         {
             CellButton* btn = grid->getButtons()->at(i)->at(j);
+            ui->gridLayout->removeWidget(btn);
             delete btn;
         }
     }
@@ -124,6 +137,7 @@ void MainWindow::on_actionEasy_triggered()
 
     initUi();
     grid->layMines();
+    connect(grid, SIGNAL(victory()), this, SLOT(onVictory()));
 }
 
 
@@ -137,6 +151,7 @@ void MainWindow::on_actionMedium_triggered()
 
     initUi();
     grid->layMines();
+    connect(grid, SIGNAL(victory()), this, SLOT(onVictory()));
 }
 
 void MainWindow::on_actionHard_triggered()
@@ -148,7 +163,9 @@ void MainWindow::on_actionHard_triggered()
     mines = HARD_MINES;
 
     initUi();
+
     grid->layMines();
+    connect(grid, SIGNAL(victory()), this, SLOT(onVictory()));
 }
 
 void MainWindow::on_actionREVEAL_triggered()
